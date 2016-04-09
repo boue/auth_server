@@ -1,5 +1,6 @@
+const Authentication = require('./controllers/authentication');
+
 module.exports = function(app){
-  app.get('/', function(req, res, next) {
-    res.send(['waterbottle', 'phone', 'paper']);
-  });
+  //post a username and password
+  app.post('/signup', Authentication.signup);
 }
