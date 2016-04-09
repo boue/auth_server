@@ -9,6 +9,10 @@ function tokenForUser(user) {
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 }
 
+exports.signin = function(req, res, next) {
+  //user has email + pass already auth'd, so we need to give token
+  res.send({ token: tokenForUser(req.user) }); 
+}
 //put in some logic from post req signup route
 exports.signup = function(req, res, next) { 
   //Pull data from request obj
