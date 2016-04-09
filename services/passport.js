@@ -17,9 +17,13 @@ const localLogin = new localStrategy(localOptions, function(email, password, don
     if (!user) { return done(null, false); }
     //compare passwords now - is 'password' equal to user.password?
     //password is salted so we compared to Hash state
+    user.comparePassword(password, function(err, isMatch) {
+      if (err) { return done(err); }
+      if (!isMatch) { return done(null, false); } //didn't find user
 
-
-  })
+      return done(null, user); //call passport cb with user
+    });
+  });
 });
 
 //strategy is a method for authenticating a user the one we have is to Verify user
@@ -50,3 +54,4 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
 
 //Tell passport to use this strategy
 passport.use(jwtLogin);
+passport.use(localLogin);
