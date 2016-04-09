@@ -4,6 +4,23 @@ const User = require('../models/user');
 const config = require('../config');
 const JwtStrategy = require('passport-jwt').Strategy; //extracting prop Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt; //''ExtractJwt
+const localStrategy = require('passport-local');
+
+//create local strategy: signin route gets email and pass (not token)
+//we need to confirm email and pass first before giving user a token this is localStrategy
+const localOptions = { usernameField: 'email' };
+const localLogin = new localStrategy(localOptions, function(email, password, done) {
+  //verify email and password, call done with user if its correct,
+  //if not call done with false. Remember doing search is asynchronous
+  User.findOne({ email: email }, function(err, user) {
+    if (err) { return done(err); }
+    if (!user) { return done(null, false); }
+    //compare passwords now - is 'password' equal to user.password?
+    //password is salted so we compared to Hash state
+
+
+  })
+});
 
 //strategy is a method for authenticating a user the one we have is to Verify user
 //with JWT but there's many other available 
