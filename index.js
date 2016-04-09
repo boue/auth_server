@@ -4,11 +4,13 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 const app = express();
+const router = require('./router');
 
 
 //Get Express working the way you want to, the following are two middlewares
 app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
+router(app);
 
 //Get Express app to talk to outside world
 const port = process.env.PORT || 3090;
