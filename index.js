@@ -6,7 +6,9 @@ const morgan = require('morgan');
 const app = express();
 
 
-//Get Express working the way you want to
+//Get Express working the way you want to, the following are two middlewares
+app.use(morgan('combined'));
+app.use(bodyParser.json({ type: '*/*' }));
 
 //Get Express app to talk to outside world
 const port = process.env.PORT || 3090;
