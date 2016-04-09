@@ -27,6 +27,16 @@ userSchema.pre('save', function(next) {
   });
 });
 
+//whenever we create a new user it will have access to all these methods 
+//user password is our hash and salted password
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) { return callback(err); }
+
+    callback(null, isMatch);
+  });
+}
+
 //Create the model class, add model as schema (all users)
 const ModelClass = mongoose.model('user', userSchema);
 
