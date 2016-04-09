@@ -5,7 +5,10 @@ const morgan = require('morgan');
 
 const app = express();
 const router = require('./router');
+const mongoose = require('mongoose');
 
+//DB Setup, creates db called auth
+mongoose.connect('mongodb://localhost:auth/auth');
 
 //Get Express working the way you want to, the following are two middlewares
 app.use(morgan('combined'));
