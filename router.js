@@ -1,6 +1,17 @@
 const Authentication = require('./controllers/authentication');
+const passportService = require('./services/passport');
+const passport = require('passport');
+
+//passport wants to make a cookie based request by default but we are using token
+//got to put session: false
+
+//requireAuth is the middleware it is the interceptor for any routes we need auth for
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 module.exports = function(app){
+  app.get('/', requireAuth, function(req, res) {
+    res.send({ hi: 'there' });
+  });
   //post a username and password
   app.post('/signup', Authentication.signup);
 }
