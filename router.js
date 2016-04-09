@@ -14,7 +14,7 @@ module.exports = function(app){
     res.send({ hi: 'there' });
   });
   //have to go thru requireSignin middleware before Authentication.signup access
-  app.post('/signin', requireSignin, Authentication.signup); 
+  app.post('/signin', requireSignin, Authentication.signin); 
   //post a username and password
   app.post('/signup', Authentication.signup);
 }
